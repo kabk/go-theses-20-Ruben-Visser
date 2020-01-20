@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  
+  <link rel="stylesheet" href="style.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Meta Weather</title>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
+
+
+  <style type="text/css">
+    body {
+      font-family: Helvetica, arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.4;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background-color: rgb(171, 171, 171);
+      padding: 10px;
+    }
+
+
+    body>*:first-child {
+      margin-top: 0 !important;
+    }
+
+    body>*:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    a {
+      color: #a3f905;
+    }
+
+    a.absent {
+      color: #cc0000;
+    }
+
+    a.anchor {
+      display: block;
+      padding-left: 30px;
+      margin-left: -30px;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 20px 0 10px;
+      padding: 0;
+      font-weight: bold;
+      -webkit-font-smoothing: antialiased;
+      cursor: text;
+      position: relative;
+    }
+
+    h1:hover a.anchor,
+    h2:hover a.anchor,
+    h3:hover a.anchor,
+    h4:hover a.anchor,
+    h5:hover a.anchor,
+    h6:hover a.anchor {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+      text-decoration: none;
+    }
+
+    h1 tt,
+    h1 code {
+      font-size: inherit;
+    }
+
+    h2 tt,
+    h2 code {
+      font-size: inherit;
+    }
+
+    h3 tt,
+    h3 code {
+      font-size: inherit;
+    }
+
+    h4 tt,
+    h4 code {
+      font-size: inherit;
+    }
+
+    h5 tt,
+    h5 code {
+      font-size: inherit;
+    }
+
+    h6 tt,
+    h6 code {
+      font-size: inherit;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #a3f905;
+    }
+
+    h2 {
+      font-size: 24px;
+      border-bottom: 1px solid #a3f905;
+      color: #a3f905;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+
+    h4 {
+      font-size: 16px;
+    }
+
+    h5 {
+      font-size: 14px;
+    }
+
+    h6 {
+      color: #777777;
+      font-size: 14px;
+    }
+
+    p,
+    blockquote,
+    ul,
+    ol,
+    dl,
+    li,
+    table,
+    pre {
+      margin: 15px 0;
+    }
+
+    hr {
+      background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+      border: 0 none;
+      color: #000000;
+      height: 4px;
+      padding: 0;
+    }
+
+    body>h2:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    body>h1:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    body>h1:first-child+h2 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    body>h3:first-child,
+    body>h4:first-child,
+    body>h5:first-child,
+    body>h6:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    a:first-child h1,
+    a:first-child h2,
+    a:first-child h3,
+    a:first-child h4,
+    a:first-child h5,
+    a:first-child h6 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    h1 p,
+    h2 p,
+    h3 p,
+    h4 p,
+    h5 p,
+    h6 p {
+      margin-top: 0;
+    }
+
+    li p.first {
+      display: inline-block;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 30px;
+    }
+
+    ul :first-child,
+    ol :first-child {
+      margin-top: 0;
+    }
+
+    dl {
+      padding: 0;
+    }
+
+    dl dt {
+      font-size: 14px;
+      font-weight: bold;
+      font-style: italic;
+      padding: 0;
+      margin: 15px 0 5px;
+    }
+
+    dl dt:first-child {
+      padding: 0;
+    }
+
+    dl dt> :first-child {
+      margin-top: 0;
+    }
+
+    dl dt> :last-child {
+      margin-bottom: 0;
+    }
+
+    dl dd {
+      margin: 0 0 15px;
+      padding: 0 15px;
+    }
+
+    dl dd> :first-child {
+      margin-top: 0;
+    }
+
+    dl dd> :last-child {
+      margin-bottom: 0;
+    }
+
+    blockquote {
+      border-left: 4px solid #000000;
+      padding: 0 15px;
+      color: #777777;
+    }
+
+    blockquote> :first-child {
+      margin-top: 0;
+    }
+
+    blockquote> :last-child {
+      margin-bottom: 0;
+    }
+
+    table {
+      padding: 0;
+      border-collapse: collapse;
+    }
+
+    table tr {
+      border-top: 1px solid #000000;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8;
+    }
+
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px;
+    }
+
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px;
+    }
+
+    table tr th :first-child,
+    table tr td :first-child {
+      margin-top: 0;
+    }
+
+    table tr th :last-child,
+    table tr td :last-child {
+      margin-bottom: 0;
+    }
+
+    img {
+      max-width: 100%;
+    }
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 60%;
+      height: 0;
+    }
+    .iframe-container iframe{
+      position: absolute;
+      top: 0;
+      left:0;
+      width: 100%;
+      height: 100%;
+    }
+
+    weatherwidget-io{
+      max-width:100%;
+    }
+
+    span.frame {
+      display: block;
+      overflow: hidden;
+    }
+
+    span.frame>span {
+      border: 1px solid #dddddd;
+      display: block;
+      float: left;
+      overflow: hidden;
+      margin: 13px 0 0;
+      padding: 7px;
+      width: auto;
+    }
+
+    span.frame span img {
+      display: block;
+      float: left;
+    }
+
+    span.frame span span {
+      clear: both;
+      color: #333333;
+      display: block;
+      padding: 5px 0 0;
+    }
+
+    span.align-center {
+      display: block;
+      overflow: hidden;
+      clear: both;
+    }
+
+    span.align-center>span {
+      display: block;
+      overflow: hidden;
+      margin: 13px auto 0;
+      text-align: center;
+    }
+
+    span.align-center span img {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    span.align-right {
+      display: block;
+      overflow: hidden;
+      clear: both;
+    }
+
+    span.align-right>span {
+      display: block;
+      overflow: hidden;
+      margin: 13px 0 0;
+      text-align: right;
+    }
+
+    span.align-right span img {
+      margin: 0;
+      text-align: right;
+    }
+
+    span.float-left {
+      display: block;
+      margin-right: 13px;
+      overflow: hidden;
+      float: left;
+    }
+
+    span.float-left span {
+      margin: 13px 0 0;
+    }
+
+    span.float-right {
+      display: block;
+      margin-left: 13px;
+      overflow: hidden;
+      float: right;
+    }
+
+    span.float-right>span {
+      display: block;
+      overflow: hidden;
+      margin: 13px auto 0;
+      text-align: right;
+    }
+
+    code,
+    tt {
+      margin: 0 2px;
+      padding: 0 5px;
+      white-space: nowrap;
+      border: 1px solid #eaeaea;
+      background-color: #f8f8f8;
+      border-radius: 3px;
+    }
+
+    pre code {
+      margin: 0;
+      padding: 0;
+      white-space: pre;
+      border: none;
+      background: transparent;
+    }
+
+    .highlight pre {
+      background-color: #f8f8f8;
+      border: 1px solid #cccccc;
+      font-size: 13px;
+      line-height: 19px;
+      overflow: auto;
+      padding: 6px 10px;
+      border-radius: 3px;
+    }
+
+    pre {
+      background-color: #f8f8f8;
+      border: 1px solid #cccccc;
+      font-size: 13px;
+      line-height: 19px;
+      overflow: auto;
+      padding: 6px 10px;
+      border-radius: 3px;
+    }
+
+    pre code,
+    pre tt {
+      background-color: transparent;
+      border: none;
+    }
+
+    sup {
+      font-size: 0.83em;
+      vertical-align: super;
+      line-height: 0;
+    }
+
+    /*kbd {
+      display: inline-block;
+      padding: 3px 5px;
+      font-size: 11px;
+      line-height: 10px;
+      color: #555;
+      vertical-align: middle;
+      background-color: #fcfcfc;
+      border: solid 1px #ccc;
+      border-bottom-color: #bbb;
+      border-radius: 3px;
+      box-shadow: inset 0 -1px 0 #bbb*/
+    }
+
+    * {
+      -webkit-print-color-adjust: exact;
+    }
+
+    @media screen and (min-width: 914px) {
+      body {
+        width: 854px;
+        margin: 0 auto;
+      }
+    }
+
+    @media print {
+
+      table,
+      pre {
+        page-break-inside: avoid;
+      }
+
+      pre {
+        word-wrap: break-word;
+      }
+
+      body {
+        padding: 2cm;
+      }
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <h1 id="toc_0">Meta-Weather</h1>
+
+  <p><img src="Meta%20Weather/Cover_image_web.png" alt="Meta%20Weather/Cover_image_web.png"></p>
+
+    <h2 id="toc_1"><strong>Contents 🌞 </strong></h2>
+    <a class="weatherwidget-io" href="https://forecast7.com/en/52d074d30/the-hague/" data-label_1="Abstract" data-label_2="WEATHER" data-font="Arial Narrow"
+    data-shadow=""
+    data-textcolor="#a3f905"
+    data-highcolor="#a3f905"
+    data-lowcolor="#a3f905"
+    data-suncolor="#a3f905"
+    data-mooncolor="#a3f905"
+    data-cloudcolor="#a3f905"
+    data-cloudfill="#a3f905"
+    data-raincolor="#a3f905"
+    data-snowcolor="#a3f905">CHAPTER 1 WEATHER</a>
+
+    <h2 id="toc_2"><strong>Abstract</strong></h2>
+    <a class="weatherwidget-io" href="https://forecast7.com/en/41d0128d98/istanbul/" data-label_1="İSTANBUL" data-label_2="WEATHER" data-font="Arial Narrow" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-suncolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >İSTANBUL WEATHER</a>
+
+
+    <p>Through the usage of metaphors and visual metaphors a representation of meteorological phenomena has been created.</p>
+
+    <p>This Thesis will focus not so much on the weather itself, but on the recreation of the weather in the imagination of individuals(Harris, 2016). The weather is deeply rooted in how humans understand and experience the world. It is one of the
+      topics that for thousands of years has been left to religion to explain. Only during the past 300 years have we been able to better understand why these phenomena occur. Only through the help of technology and human ingenuity and imagination
+      have we reached this current point in time, where the sky has finally unraveled most of its secrets.</p>
+
+    <p>Through the analysis of historical representations of these phenomena, I hope to unravel how we perceive contemporary-weather in the past and in the future.</p>
+
+    <blockquote>
+      <p>&quot;Weather is the key paradox of our time. Weather that is nice is often weather that is wrong. The nice is occurring in the immediate and individual, and the wrong is occurring systemwide.&quot;</p>
+    </blockquote>
+
+    <p>-Roni Horn (You Are the Weather, 1997)</p>
+
+    <h2 id="toc_3"><strong>🌥Introduction</strong></h2>
+    <a class="weatherwidget-io" href="https://forecast7.com/en/55d7637d62/moscow/" data-label_1="MOSCOW" data-label_2="WEATHER" data-font="Arial Narrow" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-suncolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >MOSCOW WEATHER</a>
+
+    <p>The sky has always fascinated me from a young age. I would look to the skies to see if I could spot God, or any sign of a divine being or just Santa Claus. It was the ‘unreachable’ and the mystical that fascinated me. Stories of the Ancient
+      Greek, Mayan and Egyptian civilisations triggered my imagination. It transported me to another time, which made me feel like an adventurer. It always gave me the feeling that there was something more than what we know which fed my imagination.
+    </p>
+
+    <p>While travelling through Greece with my family, we visited the what was considered by the ancient Greeks as the holy mountain, Mount Olympos. A thick mist covered the mountain as we drove up, only a few meters in front of us was visible. It
+      added mystery to the visit. As we got closer to the top we stepped out of the car. Looking up the slope of the mountain, nothing was visible except dark black rocks and mist, it felt like something was looking back at me. I was hoping to see
+      Hercules or Ajax the two demi-gods who were my heroes (Hercules was one of my favourite Disney movies and Ajax is the name of my favourite football team). Now, when I think back to that ‘mystical moment’, I realised that it was the weather that
+      made it mystical. The fog created an atmosphere that fed my imagination.</p>
+
+    <p>Everyone has a story about the weather. It is the single thread that binds and holds us together. Although the stories vary from person to person, it is still the same weather that we share. Talking about the weather is the most popular form
+      of spreading weather information. When we talk about the weather, it is as if we talk about ourselves (Horn,1997). The weather is playing a key role in how we express our emotions and ideas. It is through the weather that we convey certain
+      abstract thoughts, for others to better understand. These are then translated into art and literature where they start to represent certain emotions and ideas. It almost becomes an extension of our body (Grady, 2007).</p>
+
+    <p>In contemporary society these ideas about the weather are rapidly changing, with the rise of the internet and democratised information, anyone can access information about the weather, which changes the relationship we have with it.</p>
+
+    <p><img src="Meta%20Weather/Mount_olympus.png" alt="Meta%20Weather/Mount_olympus.png"></p>
+
+      <p>Figure 1: <a href="https://en.wikipedia.org/wiki/Mount_Olympus#/media/File:Mytikas_from_Skala.jpg">Mount Olympus</a>, Greece (2012). </p>
+
+
+      <h2 id="toc_4"><strong>🌦</strong>Chapter 1: <strong>The Metaphor</strong></h2>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/33d7373d09/islamabad/" data-label_1="ISLAMABAD" data-label_2="WEATHER" data-font="Arial Narrow" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-suncolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >ISLAMABAD WEATHER</a>
+      <h3 id="toc_5"><strong>metaphor</strong></h3>
+
+      <p>[ <strong>met</strong>-<em>uh</em>-fawr, -fer ]</p>
+
+      <p><strong><em>noun</em></strong></p>
+
+      <ol>
+        <li>a figure of speech in which a term or phrase is applied to something to which it is not literally applicable in order to suggest a resemblance, as in “A mighty fortress is our
+          God.”Compare <a href="https://www.dictionary.com/browse/mixed-metaphor">mixed metaphor</a>, <a href="https://www.dictionary.com/browse/simile">simile<strong>(def 1)</strong></a>.</li>
+        <li>something used, or regarded as being used, to represent something else; emblem; symbol</li>
+      </ol>
+
+      <p>To better understand how this bridge between the idea and the physical occurs it is key to understand how it is used in language. Where all these ideas first arise before being depicted. When a person is being &quot;warm&quot;, we do not
+        mean that that person is running a fever. Or when we describe our memory to be &quot;foggy&quot;, we do not actually mean that our thoughts are unclear, but that we are struggling to see the picture clearly. When we say someone has their head
+        in the “clouds&quot;, no one assumes that their head is soaring meters above the ground. Each of these examples are metaphors—each replacing the meaning of a certain word in a certain context. We use these certain events to describe different
+        abstract situation which we try to describe using physical examples to replace the actual words that describe them like kindness or confusion. Using metaphors is the way in which humans tap into their Semantic network of ideas and thoughts to
+        communicate. If the metaphors are good they can shed a new light on the world, and change our thinking of it (Bennett, 2011).</p>
+
+      <blockquote>
+        <p>“We think and relate to things with our body and this is one of the most elemental part of human experience. “if cognitive linguistics is a study of ways in which features of language reflect other aspects of human cognition, then
+          metaphors provide one of the clearest illustrations of this relationship” (Grady, 2007).</p>
+      </blockquote>
+
+      <p>Metaphors are the bridge between the abstract and the concrete. It is how our mind functions as it synapses between different thoughts. (Drake Bennet, 2011; Heather Altfield, 2019).</p>
+
+      <p>Metaphors are used as a lingual techniques to express ideas or experiences by linking abstract thoughts to physical phenomena. It speaks in this way to the imagination, and it shows how the mind works. Distinctions can be made between
+        different types of metaphors: it can be dead, which means that they have lost their original imagery; it equates to money such as ‘time well spent’ or ‘time is money’; they can relate to spatial metaphors relating to location; ‘A blanket of
+        snow fell through the night&#39;; or there are cliche metaphors a test is ‘a piece of cake’, a completed task is ‘a load off one’s back’, a momentary difficulty is ‘a speed bump’(Bennett, 2011).</p>
+
+      <p>Metaphors evolve over time and change according to the discourse in which they exist and in their usage. In this quote taken from Ralph Waldo Emerson’s essay <em>The Poet</em> (1844), he writes:</p>
+
+      <blockquote>
+        <p>“The etymologist finds the deadest word to have been once a brilliant picture. Language is fossil poetry. As the limestone of the continent consists of infinite masses of the shells of animalcules, so language is made up of images, or
+          tropes, which now, in their secondary use, have long ceased to remind us of their poetic origin.”</p>
+      </blockquote>
+
+      <p>We use language to make connections in our mind, by saying something ‘is like...and like…’, we can create new meaning and ideas and start to see the world in a new light. It is the embodiment of the object of the idea where new connections
+        can be made. Aristotle described creating a metaphor as having &quot;clarity and sweetness and strangeness&quot; and added:</p>
+
+      <blockquote>
+        <p>“It is a great thing, indeed, to make a proper use of the poetical forms, as also of compounds and strange words. But the greatest thing by far is to be a master of metaphor. It is the one thing that cannot be learnt from others; and it is
+          also a sign of genius, since a good metaphor implies an intuitive perception of the similarity in dissimilars.”<br>
+–Aristotle (Paul Ricoeur, 1975)</p>
+      </blockquote>
+
+      <p>Metaphors act as an important part of the architecture of language, and form the backbone of how human thought and imagination work as argued by linguist George Lakoff and philosopher Mark Johnson. They also argue that metaphors are actual
+        extensions of our consciousness and grounds our mind to the physical World.(Jaynes,1976; Lakoff, Johnson, 1980)</p>
+
+      <p>Metaphors exist and rely on the complex, emotional resonance, and connections that we make. These connections that we make, require a primary experience, and an ability to acquire the details and nature of this experience. It is the knot
+        between language and sensory experience, and between language and narrative. Metaphors reveal to the extent with which we think with our bodies and how our bodies and minds are rooted in the physical (Bennett, 2011).</p>
+
+      <p><img src="Meta%20Weather/pasted_image_0.png" alt="Meta%20Weather/pasted_image_0.png"></p>
+
+        <p>Figure 2: The Climate within, Illustration, Paul Foreman <a href="http://www.mindmapinspiration.com/">http://www.mindmapinspiration.com</a> </p>
+
+        <h2 id="toc_6"><strong>🌧</strong>Chapter 2: <strong>The evolution of the understanding of weather</strong></h2>
+        <a class="weatherwidget-io" href="https://forecast7.com/en/22d40114d11/hong-kong/" data-label_1="HONG KONG" data-label_2="WEATHER" data-font="Arial Narrow" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-suncolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >HONG KONG WEATHER</a>
+
+        <h3 id="toc_7"><strong>The myth</strong></h3>
+
+        <p>Storms were sent to punish, lightning to scare, thunder to humble, and floods to obliterate. Across cultures around the world, the weather has been present in stories and myths. All in which humans have tried to explain why these phenomena
+          were occurring. Myths for centuries have dictated how humans have understood these unexplainable mystical agents, especially in the case of Meteorological phenomena. From the flood that God sent to punish mankind, in the story of Noah&#39;s
+          ark, to the bag of winds that Aeolus gifted Odysseus, the weather was a tool of the Gods to unleash their wrath upon the mortals or eachother, or to help or guide us in any situation. (Cornelius and Devereux, 1996).</p>
+
+        <p>The ancient western mythologies or early religions, distributed the different elements of the weather to a huge variety of gods and deities. Solely the wind was already appointed to different, gods, goddesses, nymphs and demons. For
+          example, Tlaloc the Aztec God of Rain, and the most important god in mythology, or the Nordic Sky God Thor who is similar to Zeus. Each of these Gods and Deities fulfilled a different task in their realm, affecting a different
+          meteorological phenomena. With the rise of monotheism this slowly disappeared, eventually all the meteorological phenomena were appointed to one single God (Schulz, 2014).</p>
+
+        <p>The Christian story proposes that the changeability of the weather was one of the penalties inflicted upon humanity. To punish us for our sins. In the Garden of Eden, where the weather was perfectly temperate, Adam and Eve required no
+          clothes. But this changed. John Milton (1667) describes in <em>The Paradise Lost,</em> the immediate “alterations in the heavens and elements” set into effect as soon as Eve had taken a bite from the apple. The weather was brought upon us,
+          to punish us for our sins. Angels tipped the Earth on its axis, creating the changes in seasons. Humanity now were afflicted with unpredictability of the elements(Harris, 2016). At the end of <em>The Paradise Lost</em>, Adam and Eve look
+          back having one last glimpse of the fruitful Garden of Eden before being ousted into the punished weather-world, never to return.</p>
+
+        <p>The sky remained separated from the earth for centuries, this idea spanned many cultures and religions around the world. No one could touch it or enter it, the earth and the sky were considered separate entities. The sky was the domain of
+          the Gods and the Earth was the domain of man, (Donner, 2007; Williams, 1998; Cornelius and Devereux, 1996).</p>
+
+        <p><img src="Meta%20Weather/3.png" alt="Meta%20Weather/3.png"></p>
+
+          <p>Figure 3:: <a href="https://en.wikipedia.org/wiki/Tl%C4%81loc#/media/File:Tlaloc_glyph.svg">Tlaloc</a>, the God of the Rain, Thunder, Earthquakes</p>
+
+          <h3 id="toc_8"><strong>Myth to metaphor</strong></h3>
+
+          <p>The Weather never completely lost its religious undertones for many centuries. Up until the sixteenth to seventeenth century many documents describing unusual weather as an &quot;Act of God&quot;. But with the Enlightenment, this started
+            to shift. Around the seventeenth century and during the Industrial Revolution, the world was becoming more rational, scientific and technologically based. It became evermore sensible, bureaucratic and planned. Cities in western Europe
+            were slowly turning into factory complexes, without any room for nature. Nature’s role had shifted, as we were no longer at the mercy with the gods, and through science we could understand. Where natural order and natural law became the
+            prominent thought, the weather and nature also lost its mysticism. As a reaction to this many artists, musicians, writers turned to imagination, emotion, and the sublime to explain meteorological phenomena, the metaphor was introduced to
+            explain ourselves. <strong>The Mystical became the Metaphorical</strong> (Cohen, 2018). Katryn Schulz states that &quot;In a symbolic system that is now so familiar as to be intuitive, atmospheric conditions came to stand in for the human
+            condition.”</p>
+
+          <p><img src="Meta%20Weather/pasted_image_0_(1).png" alt="Meta%20Weather/pasted_image_0_(1).png"></p>
+
+            <p>Figure 4: Caspar David Friedrich, Wanderer Above the Sea of Fog, (1818)</p>
+
+            <p>In this famous painting by Casper David Friedrich, a man placed in the centre of the canvas, gazes into the distance. The landscape below is foggy and unclear, a metaphor for the unclear future that is ahead. (Cohen, 2018)</p>
+
+            <p>The weather works so well as a metaphor/symbol, because its actual representation is quite unstable. There is no visible force that reveals why it changes, “Winds and air-fronts reveal their characters only in the effects they have on
+              other things” (Harris, 2016, p. 14), only through the signifier. We learn the direction of the wind through smoke being carried northward, the cold through the visibility of our breath, or the heat given away through the trembling air
+              of a Fata Morgana. &quot;Wanderer Above the Sea of Fog&quot;, the fog works so well because it hides the true nature of the landscape that is in the distance. (Harris, 2016, p. 14).</p>
+
+            <p>The weather keeps its mystery this way, it is imperceptible even though it is one of the most powerful forces. Being imperceptible, makes it very convenient to be used as a replacement for something that we often find is fleeting and
+              changing which is <strong>The Self</strong>. Shakespeare described one of his characters as &quot;minded like the the weather&quot;. Ever since, this statement we have all been minded like the weather in one way or another. The weather
+              is very much like our emotions. There is a weather type that can be attributed to every human emotion. Our minds are foggy when we feel hectic or unclear, our temper can be hot, our mood can be chill, our heads can be in the clouds, our
+              mood can be clear. Mindfulness, the pseudo-Buddhist movement (also a very ubiquitous Business in which big companies have invested millions(Griffith, 2018)footnote) uses the weather for people to be aware of the present. The weather is
+              used as a substitute for emotions, and the sky for yourself.</p>
+
+            <h3 id="toc_9"><strong>Science</strong></h3>
+
+            <p>However, not everyone was enthusiastic about the Weather being used as a symbol. John Ruskin, one of the most influential critics of the 19th century, did not like this at all. In his book <em>The</em> <em>Modern Painters</em> (1843)
+              he criticised this notion. He criticised the fact that writers and painters were attributing human emotions to the elements especially amongst the Romantics. He dubbed this the &quot;Pathetic Fallacy&quot; (Translated from Victorian
+              English as &quot;emotional falseness&quot;, where &quot;pathos&quot; means to evoke pity, and fallacy a mistaken belief)(Oxford, 2019). Pathetic Fallacy is when humans project human emotions upon non-human objects or beings. People have
+              stated that he argued that the skies have never wept or the Sun has never smiled. Ruskin thought it was important for writers and painters to look at nature for what it is rather than finding a hidden meaning behind it. “It is one of
+              the signs of the highest power in a writer,” Ruskin argued, “to check all such habits of thought, and to keep his eyes fixed firmly on the _pure fact _”—on the “ordinary, proper, and true appearance of things.” (Schulz, 2019)</p>
+
+            <p>Reacting to the art that was being made at the time, which in Ruskin&#39;s eyes were way too sentimental, every dew drop would be quivering with human emotion and humanlike imagery. Ruskin sought to spread the word of depicting the
+              weather for what it is. Ruskin endlessly argues and criticises artists for the lack of fidelity with which they depict and write about the sky. There are chapters describing every aspect of rain, mist, clouds, lightning, sunlight, and
+              storms, taking each of these things into consideration. He was so dedicated to the fidelity of the weather that he once stood outside mid-winter to count cirrus clouds above him, all fifty thousand of them.</p>
+
+            <p>Ruskin was an avid supporter of meteorological community, which at the time was mocked and considered a pseudoscience. Ruskin delivered a speech at the meteorological society, in which he denounced the personification of the weather,
+              and believed that pure facts were to be taken serious when looking at the weather. He said that the believers in meteorology should “zealously come forward to deprecate the apathy with which it has long been regarded.” He continued to
+              state that if meteorology “wishes its influence and its power to be omnipotent over the globe, so that it may be able to know, at any given instant, the state of the atmosphere at every point on its surface” (Ruskin, 1905).</p>
+
+            <p>Meteorology as a science was lagging far behind the other sciences, significant changes were only occurring in the 18th century during the Enlightenment, and mild progress was being made in the 19th century when Ruskin made this
+              speech. The reason for this delay was that the technologies at the time were allowing more accurate measurements for measuring and depicting the weather. The technologies that allowed for these measurements were not invented until the
+              20th century. It was very difficult to observe and closely study something that changed in a matter of minutes, The tools were just not available. As a result, meteorology was never really taken seriously. In the 2000 years that was the
+              last actual attempt was made with Aristotle&#39;s meteorologica around 350 B.C., and the invention of the telegram, in the mid-nineteenth century. Meteorology was considered a Joke at the time. The lack of knowledge about how the
+              weather worked, it was a mystery that still had to be solved. In 1854 John ball gave a speech at the house of commons: “&quot;In a few years, notwithstanding the variable climate of this country, we might know in this metropolis the
+              condition of the weather twenty-four hours beforehand.&quot; which was received with laughter. (Hambling, 2014)</p>
+
+            <p>It was only until Robert Fitzroy, a British navy officer that things started to change. Fitzroy played a significant role in making a Meteorology a more concrete subject. He contributed many advancements in the field which include
+              Improving the Barometer, he pioneered the use of statistics to predict weather, and set up a government bureau solely to Track the weather. In 1831 he was the captain of one of the most well known voyages that was to change history
+              forever, the HMS Beagle. Where he met a young Naturalist Named Darwin. In a way Darwin was out to explain the Past, while Fit Roy sought to explain the Future (Moore, 2016). At the time the general belief was that the weather was solely
+              an act of God, Even Fitzroy attribute many of the meteorological findings to God. Even though he uses this terminology, he did pave the way for a general acceptance of the subject. Where he explained that there were changes in the
+              heavens gave way for a more empirical term, like the atmosphere. But one of the most significant terms that FitzRoy had contributed, and is still being used today is the term ‘Forecast’ (Moore,2016).</p>
+
+            <p><img src="Meta%20Weather/pasted_image_0_(2).png" alt="Meta%20Weather/pasted_image_0_(2).png"></p>
+
+              <p>Figure 5: portrait of Robert Fitzroy <a href="https://en.wikipedia.org/wiki/Robert_FitzRoy">Robert FitzRoy</a> (1855).</p>
+
+              <h2 id="toc_10">🌨Chapter 3: Visual Metaphor(Dynamic Systems), from past to contemporary</h2>
+              <a class="weatherwidget-io" href="https://forecast7.com/en/35d71139d73/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="Arial Narrow" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-suncolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >TOKYO WEATHER</a>
+              <p><strong>Definition</strong></p>
+
+              <p><strong>A visual metaphor</strong> is the same as a lingual metaphor. But rather than communicating through speech, it communicates using images. It is also known as pictorial metaphor or an analogical juxtaposition. (Nordquist,
+                2018).</p>
+
+              <p>In the case of the weather, these pictorial metaphors are dynamic. The depiction of dynamic systems are process that have no concrete outcome, and are ever changing. They use dynamic elements, such as vectors, or directed graph
+                lines, direction, flow, movement, and rates of change as components whose spatial order creates a graphical field. All these elements represent fluctuation of a system that can not be pinned down. These diagrams display many
+                possibilities and probabilities. Different layers of information needs to be understood to try to depict this type of models (Drucker 2014). Meteorological systems have many different aspects that change and disappear for example the
+                wind, rain, lightning or sunshine.</p>
+
+              <p>Up until the 1400s, these visual metaphors or in other words art, was mainly depicting religious figures. They used weather in the context of Religious imagery and portrayal in deities and Gods. However, by the 1400s the amount of
+                meteorological phenomena were becoming more intense, as it was having a bigger impact on human life (Lamb, 1982). Before this time the weather was quite mild in comparison to previous time periods. The weather had taken the foreground
+                in human life, and as a result it was being depicted more frequently in paintings and written about. After the 1400s the biggest steps were being made, many paintings started to have a more accurate depiction of the weather. Paintings
+                were the closest thing to being able to depict a dynamic systems, the feeling of being in any sort of weather situation and the movement could all be encompassed in a canvas. Only until the invention of Film and graphics could be able
+                to accurately show the movement of the heavenly bodies. Paintings were an accurate source (which is debatable) of weather at a given point in time. It had the ability to capture an individual&#39;s imagination and capture the
+                meteorological event with brush strokes (Keeling, 2010).</p>
+
+              <h3 id="toc_11"><strong>Timeline ⌛️</strong></h3>
+
+              <p><strong>1626</strong></p>
+
+              <p><img src="Meta%20Weather/pasted_image_0_(3).png" alt="Meta%20Weather/pasted_image_0_(3).png"></p>
+
+                <p>Figure 6: Robert Fludd,Philosophia sacra et vere christiana seu meteorologica cosmica (Frankfurt: T. de Bry, 1626).[TOP]</p>
+
+                <p>In this depiction Robert Fludd combines the occult and astronomical imagery. His system uses allegories to understand natural phenomena, it depicts the Twelve Winds and four archangels (Drucker, 2014).</p>
+
+                <p><strong>1637</strong></p>
+
+                <p><img src="Meta%20Weather/Descartes_Rainbow.png" alt="Meta%20Weather/Descartes_Rainbow.png"></p>
+
+                  <p>Figure 7: René Descartes, images of meteorological phenomena from Discourse on Method: Dioptrics, Meteorology, and Geometry (1637).</p>
+
+                  <p>In the image above Descartes depicts how rainbows work, through the observation of how light works and his imagination he was able to understand how rainbows work. In his book Discourse on Method 1637 Descartes depicts different
+                    atmospheric transformations. Descartes makes visual attempts to try to depict almost unseen activities (Drucker, 2014).</p>
+
+                  <p><img src="Meta%20Weather/pasted_image_0_(4).png" alt="Meta%20Weather/pasted_image_0_(4).png"></p>
+
+                    <p>Figure 8: René Descartes, images of meteorological phenomena from Discourse on Method: Dioptrics, Meteorology, and Geometry (1637).</p>
+
+                    <p>Even though the image above is not a depiction of the atmosphere it does depict the workings of something that we cannot see: Water molecules. It shows to what extent descartes was able to visualize unseen activities.
+                      “Molecules of water, he suggests, are shaped with wiggly tales, small and slippery, so that they can move in between the hard-edged and larger molecules of wood, earth, or stone.”(Drucker, 2014)</p>
+
+                    <p><strong>1686</strong></p>
+
+                    <p><img src="Meta%20Weather/pasted_image_0_(5).png" alt="Meta%20Weather/pasted_image_0_(5).png"></p>
+
+                      <p>Figure 9: Edmond Halley,map of the winds (1686)</p>
+
+                      <p>Edmond Halley, credited with creating the first meteorological chart. He mapped the winds on the surface of the globe in 1686. By using arrows to indicate the movement and direction of the wind, he was able to indicate
+                        unstable, changeable conditions. Even though the system is not systematic it is still an amazing attempt. Technology at the time could not show the winds on a global scale, which was developed much later with the invention of
+                        telecommunication systems (Drucker, 2014).</p>
+
+                      <p><strong>1800s</strong></p>
+
+                      <p><img src="Meta%20Weather/pasted_image_0_(6).png" alt="Meta%20Weather/pasted_image_0_(6).png"></p>
+
+                        <p>Figure 10: Weather Map from November 11, 1940 at 6:30 AM CST</p>
+
+                        <p>The creation of Isobars (lines connecting areas of similar barometric pressure) or in other words weather fronts was made by a French meteorologist in 1834 named Edme Hippolyte Marie-Davy (Drucker, 2014)</p>
+
+                        <p><img src="Meta%20Weather/pasted_image_0_(7).png" alt="Meta%20Weather/pasted_image_0_(7).png"></p>
+
+                          <p>Figure 11: A weather chart for 16 January 1861 drawn by Sir Francis Galton showing present weather icons from weather reports collected by telegraph.</p>
+
+                          <p><strong>2019</strong></p>
+
+                          <div class="iframe-container">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/_84Ucf5Fb_4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                          </div>
+                          <p>Figure 12: Tropical weather forecast &amp; Dorian update: Sept. 1, 2019, (2019).</p>
+
+                          <p>The methods to show these Dynamic systems has changed significantly since the invention of the first charts. Through the usage of Video and moving image, the visualizations have actually become dynamic. And are frequently
+                            used by news outlets and websites to show the movement of Storms or clouds. In the example above the Lady is showing the movement of a hurricane using video. The colors also change according the strength. This is the wet
+                            dream of any meteorologist of the 19th century.</p>
+
+
+                            <div class="iframe-container">
+                              <iframe  src="https://embed.windy.com/embed2.html?lat=48.585&lon=6.397&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=48.912&detailLon=5.356&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+                            </div>
+                          <p>Figure 13: Earth wind map, Realtime wind map. </p>
+
+                          <p>This screenshot was taken from a website named EarthWindMap, It depicts how the wind is moving in real time through the use of satellite images. It is fascinatingly similar to the map that Edmund Halley had drawn out
+                            almost 300 years earlier.</p>
+
+                            <div class="iframe-container">
+                              <iframe src="https://www.youtube.com/embed/P7LXmnNFYjw?start=10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+
+                          <p>The weather channels usage of cgi, The Weather Channel Immersive Mixed Reality Ice Storm (2019) </p>
+
+                          <p>As consumers of the media we are all seeking information one way or the other. We use the internet to seek information consciously, for example what I am doing while writing this paper, or sub-consciously when you are
+                            scrolling your Instagram feed in your free time (or during class). It is this shift from printed matter to the complex image as the weather. In the case of the weather, it is often portrayed through images and symbols that
+                            can easily be interpreted and understood. Forecasts are not only represented by graphical images but have also been used by artists as a medium for conveying information (Keeling, 2010).</p>
+
+                          <p><img src="Meta%20Weather/pasted_image_0_(8).png" alt="Meta%20Weather/pasted_image_0_(8).png"></p>
+
+                            <p>Figure 15: Pieter Bruegel the Elder, Hunters in the Snow <a href="https://en.wikipedia.org/wiki/The_Hunters_in_the_Snow">The Hunters in the Snow</a> (1565)</p>
+
+                            <p>These depictions were becoming more accurate, rather than the biblical form that it took before. There are many paintings depicting snow scenes from the time, previously only few paintings showed winters as cold and
+                              snowy (Burroughs, 1981). The painting &#39;Hunters in the Snow&#39; by Pieter Breugel is an example of this. It was painted during the cold period that was dubbed the little Ice Age. The scene depicts hunters coming home
+                              from a hunting trip, in the background the mountains are covered in snow, the lake below is frozen and people are walking on it. The tone of the painting is blue and gray indicating how cold it is. This painting has been
+                              suggested as a response to one of the coldest winters in Europe&#39;s history, in 1565. (Keeling, 2010)</p>
+
+                            <p><img src="Meta%20Weather/pasted_image_0_(9).png" alt="Meta%20Weather/pasted_image_0_(9).png"></p>
+
+                              <p>Figure 16: J. M. W. Turner, The Slave Ship, <a href="https://en.wikipedia.org/wiki/The_Slave_Ship">The Slave Ship</a> (1840)</p>
+
+                              <h2 id="toc_12">🌩Chapter 4: The modern metaphor</h2>
+                              <a class="weatherwidget-io" href="https://forecast7.com/en/34d05n118d24/los-angeles/" data-label_1="LOS ANGELES" data-label_2="WEATHER" data-font="Arial Narrow" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-suncolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >LOS ANGELES WEATHER</a>
+                              <p>The 21st century weather metaphor has morphed quite a bit since the past. The shifts from Myth to Metaphor and Science have drastically changed how and what role the weather plays in our daily lives. The modern tools
+                                for viewing the weather has given us the ability to look at disasters in a very fascinating way; we can watch and re-watch them at any given time. Lightning in freezeframe. A giant wave heading to the beach on replay,
+                                an avalanche crashing down a mountain in slow motion, covering skiers in snow. Many videos can be found on YouTube and different platforms all analysing and discussing these disasters. The distance between the observer
+                                and the disaster has disappeared, altering how we relate to the weather (Wood, 2013).</p>
+
+                              <p>It has caused bubbles to burst and a new bubble to be created. While looking down upon the the previous bubble, from which we have escaped, we look upon it from our newly formed bubble which is the atmosphere in its
+                                entirety. The viewer has been placed in an unstable ivory tower in which we watch the storm from a safe distance and at the same time are blown away by it. We have been liberated and imprisoned. We may be a wanderer
+                                above the mist, but we are also in the mist. In the case of the Caspar David Friedrich painting(see page 9) we are both the man on top of the cliff and the one in the mist. We have been given the position of being God
+                                himself but still we need Google maps to find our way through the mist. The wanderer has lost his phone and is looking for the nearest Starbucks. The sublime of the nineteenth century has morphed into a new form, a
+                                form which has gone haywire (Wood, 2013).</p>
+
+                              <h3 id="toc_13">The Sublime🏔</h3>
+
+                              <p>The Sublime was described by Immanuelle Kant as the feeling of watching an avalanche from a safe distance. The feeling of watching it from a safe distance gives the viewer a feeling of security and safety, however it
+                                also gives the viewer a heightened feeling of their insignificance and insecurity in the world. It is a paradoxical feeling, mixing contrasting emotions giving the viewer a moment of existential thought. Only by chance
+                                has the viewer been able to watch this event from a safe distance, and what if he or she was on the other side of the valley, experiencing the violence up close. What could ensure their absolute safety? Would be the
+                                question asked next. The answer to this Paolo Virno writes in his book Grammar of the Multitude:</p>
+
+                              <p>
+                                <em>“Kant answers: in the moral “I,” since it is precisely there that one finds something of the non-contingent, or of the realm above the mundane. The transcendent moral law protects my person in an absolute way, since it places the value which is due to it above finite existence and its numerous dangers. The feeling of the sublime (or at least one of its incarnations) consists of taking the relief I feel for having enjoyed a fortuitous place of refuge and transforming it into a search for the unconditional security which only the moral “I” can guarantee … There is a sharp bifurcation here: on the one hand a particular danger (the snowslide, the malevolent attention of the Department of the Interior, the loss of one’s job, etc.); on the other hand, there is the absolute danger connected to our very being in this world.”</em>
+                                (Virno, 2003) </p>
+
+                              <p>This sublime has taken a complete new form, and shifted the perspective of what the weather is and can be. The weather as metaphor has evolved, and become nineteenth century poetry and paintings on steroids.
+                                technological advancements have changed this perspective.</p>
+
+                              <p><img src="Meta%20Weather/pasted_image_0_(10).png" alt="Meta%20Weather/pasted_image_0_(10).png"></p>
+
+                                <p>Apple widgets <a href="https://www.cultofmac.com/409213/best-weather-widgets-for-iphone/">Best weather widgets for iPhone</a></p>
+
+                                <h3 id="toc_14">Climate Fiction⛈</h3>
+
+                                <p>Many companies and media outlets have kept pace with these changes, and have created a completely new form of depicting the weather through the use of graphics and CGI(computer-generated imagery) modeling. Just like
+                                  the shift that was made in the fourteenth century, the weather has returned as a more important theme in arts and literature. In popular film culture it has returned in the form of climate-fiction or just cli-fi.
+                                  Many movies are being made using intense weather to tell stories of climate change, and extreme natural disasters that engulf the entire globe. It stands central to the narrative of the 2004 film
+                                  <em>The Day After Tomorrow</em>. In this popular blockbuster, a cataclysmic shift into the new Ice Age is depicted. After a scientist presenting his environmental concerns are ignored, a superstorm breaks out and all
+                                  hell breaks loose. It is used as a motif to show what will happen if we continue on our current course.</p>
+
+                                <p>Many movies followed this same trend, using post and apocalyptic scenarios to warn people of the dangers of a changing climate, like the movie <em>Mad Max</em>, <em>Wall-e</em>, <em>2012</em> or the recent tv show
+                                  <em>Losing Earth</em>. The themes and topics are a bit off from a scientific point of view. Though it is through this over exaggeration that the viewer is more immersed in what is happening. The metaphor in these
+                                  stories is what enhances and frames the events that are occurring and being talked about on the news and in scientific circles. This type of framing is called narrative framing (Dankel, 2016). These narrative frames
+                                  are more or less shared and create an understanding for people of the current situation. An environmental apocalypse is another type of frame: (Dankel, 2016).</p>
+
+                                <p>“Apocalypse–understood as a cataclysmic disaster that destroys the world as we know it as a punishment for human sin–tends to dominate (consciously or unconsciously) political, cultural, scientific, and economic
+                                  discussions of environmental issues. On one hand, people are drawn to apocalypse, both in terms of its extreme transformation of the world and its reference to human guilt.” (Dankel, 2016)</p>
+
+                                <p>It is this reference to human guilt that makes these movies very effective in raising awareness about climate change. It shows possible consequences of a changing planet and gives the viewer a more immersive
+                                  feeling. It feels as if the viewers are there and that they can relate to the characters playing in the film. This is very different compared to watching the news, it is over exaggerating the feeling of the sublime
+                                  (Christensen, 2019). Cli-fi It is the return of the metaphor in the twenty-first century.</p>
+                                  <div class="iframe-container">
+                                  <iframe width="560" height="315" src="https://www.youtube.com/embed/WcQC1c-53uA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <p>Figure 14: Ending scene of The Day after tomorrow showing a frozen statue of liberty (2004)</p>
+
+                                <h3 id="toc_15">The Cloud☁️</h3>
+
+                                <p>Not only climate fiction movies use the weather as metaphor, it is used to describe the internet as well. As the internet is making the world more and more visible with a vast amount of information, it is also
+                                  clouding our vision of the world. At the sametime it is shrouding our vision of what is real and what is fake. The confusion of big data and the attempt of reducing world and human affairs and natural changes into
+                                  sets of data has made it even more complicated to understand the world. This is an idea that still stems from the enlightenment of reducing natural phenomena. In the case of Big data, a single term is used for
+                                  describing where all this data is stored, which is the cloud. The cloud, is a global network of global servers it is described on the microsoft website as “not a physical entity, but instead is a vast network of
+                                  remote servers around the globe which are hooked together and meant to operate as a single ecosystem.” (“What is the Cloud - Definition | Microsoft Azure,” 2020). Through these servers placed around the world almost
+                                  all information has been stored (Bridle, 2018).</p>
+
+                                <p>
+                                </p>
+
+                                <p>Figure 15: Apple cloud icon(N.D.)<a href="https://www.freevector.com/apple-icloud-icon">Apple I Cloud Icon Vector Art &amp; Graphics | freevector.com</a></p>
+
+                                <p>The cloud has come to stand in as a central metaphor for the Internet. It is the space within which we work, we store and retrieve personal information, think through it and pay for it, without knowing exactly what
+                                  it is. It is a hazy term that has come into place for something complex. James Bridle critiques it in his book The New Dark Ages, for being reductionist in essence and cannot stand in for a thing that is this
+                                  complex. However, it is the preferred term for many people to refer to. It takes something that we cannot fully understand and replaces it with a symbol and an idea that reduces it to something that we have
+                                  considered to be weightless. Bridle does argue that it is a very bad metaphor by oversimplifying these complex mechanisms, and clouds the exact thing that its trying to make clearer. It is dangerous to oversimplify a
+                                  situation through metaphors. It makes it hard to claim ownership over your information, creating a haze around it. Security and tech companies use it as a means of obscuring what it acctually is. The cloud does have
+                                  a physical infrastructure which can be traced by to phone cables, data centers, banks, military bases, it is a whole power structure in itself, shrouded under the term cloud(Bridle, 2018).</p>
+                                  <div class:"iframe-container">
+                                  <iframe width="560" height="315" src="https://www.youtube.com/embed/rtEBVbicVFE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                  <div>
+                                <p><img src="Meta%20Weather/pasted_image_0_(12).png" alt="Meta%20Weather/pasted_image_0_(12).png"></p>
+
+                                  <p>Figure 16: visual representation of the cloud, depicting a
+                                    <a href="https://www.networkworld.com/article/2912874/google-microsoft-and-amazon-who-s-got-the-best-cloud-for-big-data.ht">data center floating in the clouds</a> (2015)</p>
+
+                                  <h2 id="toc_16"><strong>🌪Conclusion</strong></h2>
+                                  <a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_1="NEW YORK" data-label_2="WEATHER" data-shadow="white" data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >NEW YORK WEATHER</a>
+
+                                  <p>By doing an extensive research into the history of the understanding of the weather, I have created a clearer picture for myself of how it has evolved. It is the weather that has played a key role in religion and
+                                    many stories as a metaphor, as motif, as sign and as a happening to explain how and why certain things happen. It has become a part of human imagination and entangled in how we think and feel. It has come to stand
+                                    in for the things that we can not fully explain, like ourselves. This chaotic constant has become a part of us, which new technologies have aided to. We have a paradoxical relationship with the weather, which keeps
+                                    us in a constant battle with ourselves. We have become both the wanderer and mist, the landscape and the traveler, the cause and effect(Wood, 2014). It is a schizophrenic relationship which adds to its versatile
+                                    majestic and metaphorical meanings, it can metaphorically replace more things than one.</p>
+
+                                  <p>Different elements of the weather have come to stand in for certain human emotions, which have been dictated by our experiences with it. Metaphors show in what way we think with our bodies, which plays a role on
+                                    our psyche on a metaphysical level. We think with our experiences which ties us all together, though these experiences are different it still has had a similar effect on us. Science was meant to answer these
+                                    questions, we now know why most of these events occur, but we still do not fully understand how we experience them. In a time where more extreme weather is occurring we are having a revival of art and literature
+                                    that is dealing with this topic. Just like in the 1400s where weather painting was becoming more important because of extreme weather phenomena, we are experiencing this same return, in the form of Cli-fi cinema
+                                    and novels. Though scientifically incorrect, it is a way of creating over exaggerated dramatic effect to seed a change in a person&#39;s opinion on a changing climate for example. The scientific models are not as
+                                    enticing as a story that tries to pull you in and confront you with what the possibilities are.</p>
+
+                                  <p>A metaphor can also be a dangerous model to use. In the relationship to the internet it can over simplify the topic making it the easy way out. It avoids the nitty gritty of the internet making it an easy model to
+                                    deceive people and can have serious effects on privacy. The cloud is a term that is meant to cover up the truth behind it. It represents the tip of an iceberg that has an entire body of servers and cables beneath
+                                    the surface of the water.</p>
+
+                                  <p>As a metaphor it is being used for good or for the bad, it is intertwined in how we place ourselves in the world. The weather is a metaphysical experience for human beings, that ties all of us together. It is a
+                                    type of Meta-weather, it is a transcendental experience that combines the emotional and the physical.</p>
+
+                                  <h2 id="toc_17"><strong>🌫</strong>Bibliography</h2>
+                                  <a class="weatherwidget-io" href="https://forecast7.com/en/52d074d30/the-hague/" data-label_1="THE HAGUE" data-label_2="WEATHER" data-shadow=  data-textcolor="#a3f905" data-highcolor="#a3f905" data-lowcolor="#a3f905" data-mooncolor="#a3f905" data-cloudcolor="#a3f905" data-cloudfill="#a3f905" data-raincolor="#a3f905" data-snowcolor="#a3f905" >THE HAGUE WEATHER</a>
+
+                                  <p>Ruskin, J. (1905). On the Old Road. London: George Allen.</p>
+
+                                  <p>Cornelius G, Devereux P (1996) The secret language of stars and planets. Chronicle Books, London</p>
+
+                                  <p>Anderson, K. (1999). The Weather Prophets: Science and Reputation in Victorian Meteorology. <a href="https://doi.org/10.1177/007327539903700203">History of Science</a>, 37(2), 179–216. </p>
+
+                                  <p>Radford, T. (2016, December 26). Dickens used wild weather to great effect in his Christmas books. Retrieved December 6, 2019, from
+                                    <a href="https://www.theguardian.com/news/2016/dec/26/dickens-used-wild-weather-to-great-effect-in-his-christmas-books">the Guardian</a> </p>
+
+                                  <p>Tate. (2018). Weather Exam Help – Student Resource | Tate. Retrieved December 9, 2019, from <a href="https://www.tate.org.uk/art/student-resource/exam-help/weather">Tate</a>. </p>
+
+                                  <p>Enlightenment | Definition, History, &amp; Facts | Britannica. (2019). In <a href="https://www.britannica.com/event/Enlightenment-European-history">Encyclopædia Britannica</a>. </p>
+
+                                  <p>Schulz, K. (2019). Talk About the Weather. Retrieved December 9, 2019, from <a href="https://www.newyorker.com/magazine/2015/11/23/writers-in-the-storm">The New Yorker</a> </p>
+
+                                  <p>Cohen, A. (2018, August 6). Unraveling the Mysteries behind Caspar David Friedrich’s “Wanderer.” Retrieved December 12, 2019, from
+                                    <a href="https://www.artsy.net/article/artsy-editorial-unraveling-mysteries-caspar-david-friedrichs-wanderer">Artsy</a> </p>
+
+                                  <p>Luke, B. (2019, February 6). Beguiled then bewildered: Ruskin’s love-hate relationship with Turner. Retrieved December 12, 2019, from
+                                    <a href="https://www.theartnewspaper.com/news/beguiled-then-bewildered-ruskin-and-turner">Theartnewspaper.com</a> </p>
+
+                                  <p>Drucker, J. (2014). Graphesis : Visual Forms of Knowledge Production (pp. 21–25). Cambridge, Massachusetts: Harvard University Press.</p>
+
+                                  <p>Keeling, S. J. (2010). Visualization of the weather-past and present. <a href="https://doi.org/10.1002/met.208">Meteorological Applications</a>, 17(2), 126–133. </p>
+
+                                  <p>Ari Mattes. (2019, December 12). Friday essay: eco-disaster films in the 21st century - helpful or harmful? Retrieved December 15, 2019, from
+                                    <a href="https://theconversation.com/friday-essay-eco-disaster-films-in-the-21st-century-helpful-or-harmful-127097">The Conversation</a> </p>
+
+                                  <p>Visual Metaphors: Definition &amp; Examples | Study.com. (2019). Retrieved December 16, 2019, from <a href="https://study.com/academy/lesson/visual-metaphors-definition-examples.html">Study.com</a> </p>
+
+                                  <p>02.122 The Day After Tomorrow: Environmental Apocalypse and Political Mobilization - Humanities, Arts and Social Sciences (HASS). (2016, August 8). Retrieved December 18, 2019, from Humanities,
+                                    <a href="https://hass.sutd.edu.sg/education/undergraduate-subjects/elective/02122-day-tomorrow-environmental-apocalypse-political-mobilization">Arts and Social Sciences (HASS)</a></p>
+
+                                  <p>Met Office. (2017, November 16). The Cray XC40 supercomputer. Retrieved December 18, 2019, from <a href="https://www.metoffice.gov.uk/about-us/what/technology/supercomputer">Met Office</a> </p>
+
+                                  <p>We Are the Weather - Journal #45 May 2013 - e-flux. (2013). Retrieved December 18, 2019, from <a href="https://www.e-flux.com/journal/45/60131/we-are-the-weather/">E-flux.com</a> </p>
+
+                                  <p>What is the Cloud - Definition | Microsoft Azure. (2020). Retrieved January 5, 2020, from <a href="https://azure.microsoft.com/en-us/overview/what-is-the-cloud/">Microsoft.com</a> </p>
+
+                                  <p>What is the Cloud - Definition | Microsoft Azure. (2020). Retrieved January 5, 2020, from <a href="https://azure.microsoft.com/en-us/overview/what-is-the-cloud/">Microsoft.com</a> </p>
+
+                                  <p>Bridle, J. (2019). New Dark Age : Technology and the End of the Future. Orca Book Services.</p>
+
+                                  <p><strong>Images</strong></p>
+
+                                  <p>Krishna, S. (2018, April 6). The Weather Channel will bring mixed-reality disasters to broadcasts. Retrieved December 17, 2019, from
+                                    <a href="https://www.engadget.com/2018/04/06/the-weather-channel-unreal-engine-mixed-reality/?guccounter=1&amp;guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&amp;guce_referrer_sig=AQAAAHNu-cGTa4abO_Erw5lH5A9O9jUMbXE8e8PW8p2BPwHpcLtTNHOFN5UoDh-DyU0MgfrOQGX-BvyxNackABEnwOAiIwWrQ9Q2PVGous0uGTyPq78Sin6UNsCTSuettH_5DXlhrXZuBWb9RC1ejiAZWcOS1vTcB-YoavZwKaHFdoWO">Engadget</a>
+                                  </p>
+
+                                  <p>Butler, B. (2015, April 21). Google, Microsoft and Amazon: Who’s got the best cloud for big data? Retrieved January 16, 2020, from
+                                    <a href="https://www.networkworld.com/article/2912874/google-microsoft-and-amazon-who-s-got-the-best-cloud-for-big-data.html">Network World</a> </p>
+
+                                  <p>Apple I Cloud Icon Vector Art &amp; Graphics | freevector.com. (2020). Retrieved January 16, 2020, from <a href="https://www.freevector.com/apple-icloud-icon">FreeVector.com</a>.</p>
+
+                                  <p>https://www.facebook.com/theappfactor. (2016, January 27). Best weather widgets for iPhone | Cult of Mac. Retrieved January 16, 2020,
+                                    <a href="https://www.cultofmac.com/409213/best-weather-widgets-for-iphone/">Cult of Mac</a> </p>
+
+                                  <p>Wikipedia Contributors. (2018, September 12). The Slave Ship. Retrieved January 16, 2020, from Wikipedia website: <a href="https://en.wikipedia.org/wiki/The_Slave_Ship#/media/File:Slave-ship.jpg">Wikipedia</a></p>
+
+                                  <p>Wikipedia Contributors. (2019, January 23). The Hunters in the Snow. Retrieved January 16, 2020, from Wikipedia website:
+                                    <a href="https://en.wikipedia.org/wiki/The_Hunters_in_the_Snow#/media/File:Pieter_Bruegel_the_Elder_-_Hunters_in_the_Snow_(Winter)_-_Google_Art_Project.jpg">Wikipedia</a></p>
+
+                                  <p>‌<strong>‌Video</strong></p>
+
+                                  <p>The Weather Channel. (2019). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=3297Doifr7c">Youtube</a></p>
+
+                                  <p>TrailersPlaygroundHD. (2019). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=Ku_IseK3xTc">Youtube</a></p>
+
+                                  <p>Verso Books. (2020). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=7hSj01bAZAU">Youtube</a></p>
+
+                                  <p>Movieclips Classic Trailers. (2020). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=vZIIKsnM6MM&amp;list=PLJvfYdmuTViFl9fuE_SHU6lnGd_z4As0-&amp;index=3&amp;t=0s">Yotube</a></p>
+
+                                  <p>Thompson, D. (2020). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=hQ72fcHDUC8&amp;list=PLJvfYdmuTViFl9fuE_SHU6lnGd_z4As0-&amp;index=7&amp;t=0s">Youtube</a></p>
+
+                                  <p>The Telegraph. (2020). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=j6ZKsqqZ6gk&amp;list=PLJvfYdmuTViFl9fuE_SHU6lnGd_z4As0-&amp;index=13">Youtube</a></p>
+
+                                  <p>Movieclips Classic Trailers. (2020). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=GncQtURdcE4">Youtube</a> </p>
+
+                                  <script type="text/javascript">
+                                        $('ul.main-menu li').click(function(e) {
+                                              e.preventDefault();
+
+                                              if($(this).siblings('li').find('ul.submenu:visible').length) {
+                                                    $('ul.submenu').slideUp('normal');
+                                              }
+                                              $(this).find('ul.submenu').slideToggle('normal');
+                                        });
+
+                                        var t1 = new TimelineMax({paused: true});
+
+                                        t1.to(".menu", 0.8, {
+                                              autoAlpha: 1
+                                        });
+
+                                        t1.staggerFrom(".main-menu li a:not(.submenu li a)", 1, {
+                                              opacity: 0,
+                                              y: 10,
+                                              ease: Power3.easeInOut
+                                        }, 0.1);
+
+                                        t1.from(".submenu", 0.8, {
+                                              autoAlpha: 0
+                                        });
+
+                                        t1.staggerFrom(".media ul li", 1, {
+                                              opacity: 0,
+                                              y: 10,
+                                              ease: Power3.easeInOut
+                                        }, 0.1, "-=2");
+
+                                        t1.from(".call", 1, {
+                                              delay: -2,
+                                              opacity: 0,
+                                              y: 10,
+                                              ease: Power3.easeInOut
+                                        });
+
+                                        t1.from(".mail", 1, {
+                                              delay: -1.6,
+                                              opacity: 0,
+                                              y: 10,
+                                              ease: Power3.easeInOut
+                                        });
+
+                                        t1.reverse();
+
+                                        $(document).on("click", ".menu-btn", function() {
+                                              t1.reversed(!t1.reversed());
+                                        });
+
+                                        $(document).on("click", ".close-menu", function() {
+                                              t1.reversed(!t1.reversed());
+                                        });
+                                        </script>
+
+
+
+
+</body>
+
+</html>
