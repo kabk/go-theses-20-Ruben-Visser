@@ -8,16 +8,26 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Meta Weather</title>
 
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
+    ! function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }
+    }(document, 'script', 'weatherwidget-io-js');
+  </script>
 
 
   <style type="text/css">
     body {
-      font-family: Helvetica, arial, sans-serif;
+      font-family: Helvetica neue, arial, sans-serif;
       font-size: 17px;
       line-height: 1.4;
       padding-top: 10px;
@@ -166,7 +176,7 @@
     body>h1:first-child {
       margin-top: 0;
       padding-top: 0;
-      
+
 
     }
 
@@ -313,22 +323,24 @@
     img {
       max-width: 100%;
     }
+
     .iframe-container {
       position: relative;
       width: 100%;
       padding-bottom: 60%;
       height: 0;
     }
-    .iframe-container iframe{
+
+    .iframe-container iframe {
       position: absolute;
       top: 0;
-      left:0;
+      left: 0;
       width: 100%;
       height: 100%;
     }
 
-    weatherwidget-io{
-      max-width:100%;
+    weatherwidget-io {
+      max-width: 100%;
     }
 
     span.frame {
@@ -509,6 +521,39 @@
         padding: 2cm;
       }
     }
+    .topnav {
+      overflow: hidden;
+      background-color: ;
+      position: relative;
+    }
+
+    .topnav #myLinks {
+      display: none;
+    }
+
+    .topnav a {
+      color: #a3f905;
+      padding: 3px 5px;
+      text-decoration: none;
+      font-family: Helvetica,Arial,sans-serif;
+      font-size: 17px;
+      display: block;
+    }
+
+    .topnav a.icon {
+      background: ;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .topnav a:hover {
+      background-color: ;
+
+    }
+
+
+
 
   </style>
 
@@ -517,14 +562,35 @@
 
 <body>
 
-<h1 id="toc_0">Meta-Weather</h1>
+  <div class="topnav">
+    <a href="index.html" class="active">
+    <h1 id="toc_0">Meta-Weather</h1>
+    </a>
+    <div id="myLinks">
+      <a href="#toc_2">🌤Abstract </a>
+      <a href="#toc_3">🌥Introduction</a>
+      <a href="#toc_4">🌦Chapter 1: The Metaphor</a>
+      <a href="#toc_6">🌧Chapter 2: The evolution of the understanding of weather</a>
+      <a href="#toc_10">🌨Chapter 3: Visual Metaphor(Dynamic Systems), from past to contemporary</a>
+      <a href="#toc_11">⌛️Timeline</a>
+      <a href="#toc_12">🌩Chapter 4: The modern metaphor</a>
+      <a href="#toc_16">🌪Conclusion</a>
+      <a href="#toc_17">🌫Bibliography </a>
+
+
+    </div>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+  <i class="fa fa-bars"></i>
+</a>
+  </div>
   <p><img src="Meta%20Weather/Cover_image_web.png" alt="Meta%20Weather/Cover_image_web.png"></p>
 
-  <p><center>Ruben Visser<br>
+    <p>
+      <center>Ruben Visser<br>
   KABK 2020
   </center>
-  </p>
-    <h2 id="toc_1"><strong>Contents 🌞 </strong></h2>
+    </p>
+    <!--<h2 id="toc_1"><strong>Contents 🌞 </strong></h2>-->
     <a class="weatherwidget-io" href="https://forecast7.com/en/52d074d30/the-hague/" data-label_1="Abstract" data-label_2="WEATHER" data-font="Arial Narrow"
     data-shadow=""
     data-textcolor="#a3f905"
@@ -797,17 +863,17 @@
                             dream of any meteorologist of the 19th century.</p>
 
 
-                            <div class="iframe-container">
-                              <iframe  src="https://embed.windy.com/embed2.html?lat=48.585&lon=6.397&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=48.912&detailLon=5.356&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
-                            </div>
+                          <div class="iframe-container">
+                            <iframe  src="https://embed.windy.com/embed2.html?lat=48.585&lon=6.397&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=48.912&detailLon=5.356&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+                          </div>
                           <p>Figure 13: Earth wind map, Realtime wind map. </p>
 
                           <p>This screenshot was taken from a website named EarthWindMap, It depicts how the wind is moving in real time through the use of satellite images. It is fascinatingly similar to the map that Edmund Halley had drawn out
                             almost 300 years earlier.</p>
 
-                            <div class="iframe-container">
-                              <iframe src="https://www.youtube.com/embed/P7LXmnNFYjw?start=10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
+                          <div class="iframe-container">
+                            <iframe src="https://www.youtube.com/embed/P7LXmnNFYjw?start=10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                          </div>
 
                           <p>The weather channels usage of cgi, The Weather Channel Immersive Mixed Reality Ice Storm (2019) </p>
 
@@ -878,7 +944,7 @@
                                 <p>It is this reference to human guilt that makes these movies very effective in raising awareness about climate change. It shows possible consequences of a changing planet and gives the viewer a more immersive
                                   feeling. It feels as if the viewers are there and that they can relate to the characters playing in the film. This is very different compared to watching the news, it is over exaggerating the feeling of the sublime
                                   (Christensen, 2019). Cli-fi It is the return of the metaphor in the twenty-first century.</p>
-                                  <div class="iframe-container">
+                                <div class="iframe-container">
                                   <iframe width="560" height="315" src="https://www.youtube.com/embed/WcQC1c-53uA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                                 <p>Figure 14: Ending scene of The Day after tomorrow showing a frozen statue of liberty (2004)</p>
@@ -904,10 +970,10 @@
                                   situation through metaphors. It makes it hard to claim ownership over your information, creating a haze around it. Security and tech companies use it as a means of obscuring what it acctually is. The cloud does have
                                   a physical infrastructure which can be traced by to phone cables, data centers, banks, military bases, it is a whole power structure in itself, shrouded under the term cloud(Bridle, 2018).
                                 </p>
-                                  <div class="iframe-container">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/rtEBVbicVFE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                <div class="iframe-container">
+                                  <iframe width="560" height="315" src="https://www.youtube.com/embed/rtEBVbicVFE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                                     </iframe>
-                                  </div>
+                                </div>
 
 
                                 <p><img src="Meta%20Weather/pasted_image_0_(12).png" alt="Meta%20Weather/pasted_image_0_(12).png"></p>
@@ -1019,64 +1085,75 @@
 
                                   <p>Movieclips Classic Trailers. (2020). YouTube [YouTube Video]. Retrieved from <a href="https://www.youtube.com/watch?v=GncQtURdcE4">Youtube</a> </p>
                                   <div class="iframe-container">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/gVKEM4K8J8A?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/gVKEM4K8J8A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                   </div>
                                   <script type="text/javascript">
-                                        $('ul.main-menu li').click(function(e) {
-                                              e.preventDefault();
+                                    $('ul.main-menu li').click(function(e) {
+                                      e.preventDefault();
 
-                                              if($(this).siblings('li').find('ul.submenu:visible').length) {
-                                                    $('ul.submenu').slideUp('normal');
-                                              }
-                                              $(this).find('ul.submenu').slideToggle('normal');
-                                        });
+                                      if ($(this).siblings('li').find('ul.submenu:visible').length) {
+                                        $('ul.submenu').slideUp('normal');
+                                      }
+                                      $(this).find('ul.submenu').slideToggle('normal');
+                                    });
 
-                                        var t1 = new TimelineMax({paused: true});
+                                    var t1 = new TimelineMax({
+                                      paused: true
+                                    });
 
-                                        t1.to(".menu", 0.8, {
-                                              autoAlpha: 1
-                                        });
+                                    t1.to(".menu", 0.8, {
+                                      autoAlpha: 1
+                                    });
 
-                                        t1.staggerFrom(".main-menu li a:not(.submenu li a)", 1, {
-                                              opacity: 0,
-                                              y: 10,
-                                              ease: Power3.easeInOut
-                                        }, 0.1);
+                                    t1.staggerFrom(".main-menu li a:not(.submenu li a)", 1, {
+                                      opacity: 0,
+                                      y: 10,
+                                      ease: Power3.easeInOut
+                                    }, 0.1);
 
-                                        t1.from(".submenu", 0.8, {
-                                              autoAlpha: 0
-                                        });
+                                    t1.from(".submenu", 0.8, {
+                                      autoAlpha: 0
+                                    });
 
-                                        t1.staggerFrom(".media ul li", 1, {
-                                              opacity: 0,
-                                              y: 10,
-                                              ease: Power3.easeInOut
-                                        }, 0.1, "-=2");
+                                    t1.staggerFrom(".media ul li", 1, {
+                                      opacity: 0,
+                                      y: 10,
+                                      ease: Power3.easeInOut
+                                    }, 0.1, "-=2");
 
-                                        t1.from(".call", 1, {
-                                              delay: -2,
-                                              opacity: 0,
-                                              y: 10,
-                                              ease: Power3.easeInOut
-                                        });
+                                    t1.from(".call", 1, {
+                                      delay: -2,
+                                      opacity: 0,
+                                      y: 10,
+                                      ease: Power3.easeInOut
+                                    });
 
-                                        t1.from(".mail", 1, {
-                                              delay: -1.6,
-                                              opacity: 0,
-                                              y: 10,
-                                              ease: Power3.easeInOut
-                                        });
+                                    t1.from(".mail", 1, {
+                                      delay: -1.6,
+                                      opacity: 0,
+                                      y: 10,
+                                      ease: Power3.easeInOut
+                                    });
 
-                                        t1.reverse();
+                                    t1.reverse();
 
-                                        $(document).on("click", ".menu-btn", function() {
-                                              t1.reversed(!t1.reversed());
-                                        });
+                                    $(document).on("click", ".menu-btn", function() {
+                                      t1.reversed(!t1.reversed());
+                                    });
 
-                                        $(document).on("click", ".close-menu", function() {
-                                              t1.reversed(!t1.reversed());
-                                        });
-                                        </script>
+                                    $(document).on("click", ".close-menu", function() {
+                                      t1.reversed(!t1.reversed());
+                                    });
+                                    function myFunction() {
+                                    var x = document.getElementById("myLinks");
+                                    if (x.style.display === "block") {
+                                      x.style.display = "none";
+                                    } else {
+                                      x.style.display = "block";
+                                    }
+                                    }
+
+                                  </script>
 
 
 
